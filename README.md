@@ -1,6 +1,6 @@
-# Eclypse Z7 Base Vivado Project
+# Eclypse Z7 Out-of-Box Vivado Project
 
-This branch contains a Vivado project with the master XDC and a block diagram containing only a configured Zynq block. The vivado-library repository is included as a submodule.
+This branch contains the Out-of-Box Vivado project for the Eclypse Z7. This project is placed in the Eclypse Z7's flash during manufacturing.
 
 This repository contains Vivado projects for each demo for the Eclypse Z7, version controlled on their own branches. Non-Vivado sources for Eclypse Z7 demos can be found through this repo's parent repository, [Eclypse Z7](https://github.com/Digilent/Eclypse-Z7).
 
