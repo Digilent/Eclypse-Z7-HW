@@ -8,7 +8,7 @@
 #create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { clk }];
 
 ## Buttons
-#set_property -dict { PACKAGE_PIN C17   IOSTANDARD LVCMOS33 } [get_ports { btn[0] }]; #IO_L11P_T1_SRCC Sch=btn[0]
+set_property -dict { PACKAGE_PIN C17   IOSTANDARD LVCMOS33 } [get_ports { reset_rtl_0_0 }]; #IO_L11P_T1_SRCC Sch=btn[0]
 #set_property -dict { PACKAGE_PIN C18   IOSTANDARD LVCMOS33 } [get_ports { btn[1] }]; #IO_L11N_T1_SRCC Sch=btn[1]
 
 ## RGB LEDs
