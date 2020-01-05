@@ -29,7 +29,11 @@ This demo can be used as a basis for other projects by modifying the hardware pl
 ## Additional Notes
 
 For more information on the Eclypse Z7, visit it's [Eclypse Z7 Resource Center](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/start) on the Digilent Wiki.
+
 ~~For more information on the Zmod ADC 1410, please visit us here [Zmod ADC Resource Center](https://reference.digilentinc.com/reference/zmod/zmodadc/start) on the Digilent Wiki.~~
-For more information on how our git and porject flow is set up please refer to [Eclypse Z7 Git Repositoies](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git)
+
+For more information on how our git and porject flow is set up please refer to [Eclypse Z7 Git Repositoies](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git).
+
 For more information on how this project is version controlled, refer to the [digilent-vivado-scripts repo](https://github.com/digilent/digilent-vivado-scripts).
+
 For technical support or questions, please post on the [Digilent Forum](forum.digilentinc.com).
