@@ -133,7 +133,6 @@ xilinx.com:ip:xlconstant:1.1\
 natinst.com:user:AXI_ZmodADC1410:1.0\
 xilinx.com:user:ZmodADC1410_Controller:1.0\
 xilinx.com:ip:axi_dma:7.1\
-xilinx.com:ip:ila:6.2\
 xilinx.com:ip:xlslice:1.0\
 "
 
@@ -259,14 +258,6 @@ proc create_hier_cell_ZmodADC_0 { parentCell nameHier } {
    CONFIG.c_sg_length_width {16} \
  ] $axi_dma_0
 
-  # Create instance: ila_0, and set properties
-  set ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_0 ]
-  set_property -dict [ list \
-   CONFIG.C_ENABLE_ILA_AXI_MON {false} \
-   CONFIG.C_MONITOR_TYPE {Native} \
-   CONFIG.C_NUM_OF_PROBES {8} \
- ] $ila_0
-
   # Create instance: xlslice_0, and set properties
   set xlslice_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_0 ]
   set_property -dict [ list \
@@ -299,15 +290,13 @@ proc create_hier_cell_ZmodADC_0 { parentCell nameHier } {
   connect_bd_net -net ADC_DCO_0_1 [get_bd_pins ADC_DCO_0] [get_bd_pins ZmodADC1410_Controll_1/DcoClk]
   connect_bd_net -net AXI_ZmodADC1410_1_lIrqOut [get_bd_pins lIrqOut] [get_bd_pins AXI_ZmodADC1410_1/lIrqOut]
   connect_bd_net -net AXI_ZmodADC1410_1_sCh1CouplingSelect [get_bd_pins AXI_ZmodADC1410_1/sCh1CouplingSelect] [get_bd_pins ZmodADC1410_Controll_1/sCh1CouplingConfig]
-  connect_bd_net -net AXI_ZmodADC1410_1_sCh1GainSelect [get_bd_pins AXI_ZmodADC1410_1/sCh1GainSelect] [get_bd_pins ZmodADC1410_Controll_1/sCh1GainConfig] [get_bd_pins ila_0/probe5]
+  connect_bd_net -net AXI_ZmodADC1410_1_sCh1GainSelect [get_bd_pins AXI_ZmodADC1410_1/sCh1GainSelect] [get_bd_pins ZmodADC1410_Controll_1/sCh1GainConfig]
   connect_bd_net -net AXI_ZmodADC1410_1_sCh2CouplingSelect [get_bd_pins AXI_ZmodADC1410_1/sCh2CouplingSelect] [get_bd_pins ZmodADC1410_Controll_1/sCh2CouplingConfig]
-  connect_bd_net -net AXI_ZmodADC1410_1_sCh2GainSelect [get_bd_pins AXI_ZmodADC1410_1/sCh2GainSelect] [get_bd_pins ZmodADC1410_Controll_1/sCh2GainConfig] [get_bd_pins ila_0/probe6]
-  connect_bd_net -net AXI_ZmodADC1410_1_sTestMode [get_bd_pins AXI_ZmodADC1410_1/sTestMode] [get_bd_pins ZmodADC1410_Controll_1/sTestMode] [get_bd_pins ila_0/probe7]
+  connect_bd_net -net AXI_ZmodADC1410_1_sCh2GainSelect [get_bd_pins AXI_ZmodADC1410_1/sCh2GainSelect] [get_bd_pins ZmodADC1410_Controll_1/sCh2GainConfig]
+  connect_bd_net -net AXI_ZmodADC1410_1_sTestMode [get_bd_pins AXI_ZmodADC1410_1/sTestMode] [get_bd_pins ZmodADC1410_Controll_1/sTestMode]
   connect_bd_net -net AXI_ZmodADC1410_1_sZmodControllerRst_n [get_bd_pins AXI_ZmodADC1410_1/sZmodControllerRst_n] [get_bd_pins ZmodADC1410_Controll_1/sRst_n]
   connect_bd_net -net Net [get_bd_pins sdio_sc_0] [get_bd_pins ZmodADC1410_Controll_1/sADC_SDIO]
-  connect_bd_net -net ZmodADC1410_Controll_0_CALIB_DONE_N [get_bd_pins AXI_ZmodADC1410_1/sInitDone_n] [get_bd_pins ZmodADC1410_Controll_1/sInitDone_n] [get_bd_pins ila_0/probe4]
-  connect_bd_net -net ZmodADC1410_Controll_1_FIFO_EMPTY_CHA [get_bd_pins ZmodADC1410_Controll_1/FIFO_EMPTY_CHA] [get_bd_pins ila_0/probe0]
-  connect_bd_net -net ZmodADC1410_Controll_1_FIFO_EMPTY_CHB [get_bd_pins ZmodADC1410_Controll_1/FIFO_EMPTY_CHB] [get_bd_pins ila_0/probe1]
+  connect_bd_net -net ZmodADC1410_Controll_0_CALIB_DONE_N [get_bd_pins AXI_ZmodADC1410_1/sInitDone_n] [get_bd_pins ZmodADC1410_Controll_1/sInitDone_n]
   connect_bd_net -net ZmodADC1410_Controll_1_adcClkIn_n [get_bd_pins CLKIN_ADC_N_0] [get_bd_pins ZmodADC1410_Controll_1/adcClkIn_n]
   connect_bd_net -net ZmodADC1410_Controll_1_adcClkIn_p [get_bd_pins CLKIN_ADC_P_0] [get_bd_pins ZmodADC1410_Controll_1/adcClkIn_p]
   connect_bd_net -net ZmodADC1410_Controll_1_adcSync [get_bd_pins ADC_SYNC_0] [get_bd_pins ZmodADC1410_Controll_1/adcSync]
@@ -330,9 +319,9 @@ proc create_hier_cell_ZmodADC_0 { parentCell nameHier } {
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins s00_axi_aclk] [get_bd_pins AXI_ZmodADC1410_1/s00_axi_aclk] [get_bd_pins axi_dma_0/s_axi_lite_aclk]
   connect_bd_net -net clk_wiz_0_clk_out4 [get_bd_pins ADC_InClk] [get_bd_pins ZmodADC1410_Controll_1/ADC_InClk]
   connect_bd_net -net lRst_n_1 [get_bd_pins lRst_n] [get_bd_pins AXI_ZmodADC1410_1/lRst_n] [get_bd_pins axi_dma_0/axi_resetn]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins SysClk] [get_bd_pins AXI_ZmodADC1410_1/SysClk] [get_bd_pins ZmodADC1410_Controll_1/SysClk] [get_bd_pins ila_0/clk]
-  connect_bd_net -net xlslice_0_Dout [get_bd_pins AXI_ZmodADC1410_1/sCh1In] [get_bd_pins ila_0/probe2] [get_bd_pins xlslice_0/Dout]
-  connect_bd_net -net xlslice_1_Dout [get_bd_pins AXI_ZmodADC1410_1/sCh2In] [get_bd_pins ila_0/probe3] [get_bd_pins xlslice_1/Dout]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins SysClk] [get_bd_pins AXI_ZmodADC1410_1/SysClk] [get_bd_pins ZmodADC1410_Controll_1/SysClk]
+  connect_bd_net -net xlslice_0_Dout [get_bd_pins AXI_ZmodADC1410_1/sCh1In] [get_bd_pins xlslice_0/Dout]
+  connect_bd_net -net xlslice_1_Dout [get_bd_pins AXI_ZmodADC1410_1/sCh2In] [get_bd_pins xlslice_1/Dout]
 
   # Restore current instance
   current_bd_instance $oldCurInst
