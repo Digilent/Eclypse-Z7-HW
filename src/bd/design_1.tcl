@@ -331,6 +331,9 @@ proc create_root_design { parentCell } {
   set ZmodDAC_0_DAC_SET_FS1_0 [ create_bd_port -dir O ZmodDAC_0_DAC_SET_FS1_0 ]
   set ZmodDAC_0_DAC_SET_FS2_0 [ create_bd_port -dir O ZmodDAC_0_DAC_SET_FS2_0 ]
   set reset_rtl_0_0 [ create_bd_port -dir I -type rst reset_rtl_0_0 ]
+  set_property -dict [ list \
+   CONFIG.POLARITY {ACTIVE_HIGH} \
+ ] $reset_rtl_0_0
 
   # Create instance: ZmodDAC_0
   create_hier_cell_ZmodDAC_0 [current_bd_instance .] ZmodDAC_0
