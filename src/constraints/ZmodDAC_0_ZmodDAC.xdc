@@ -41,10 +41,11 @@ set_property PACKAGE_PIN AA22 [get_ports ZmodDAC_0_DAC_EN_0]
 set_property IOSTANDARD LVCMOS18 [get_ports ZmodDAC_0_DAC_EN_0]
 
 
-create_generated_clock -name DAC_CLKIN_0 -source [get_pins bd_48ac design_1_i/ZmodDAC_0/ZmodDAC1411_Controll_0/U0/InstDAC_ClkinODDR/C] -divide_by 1 [get_ports ZmodDAC_0_DAC_CLKIN_0]
-create_generated_clock -name DAC_CLKIO_0 -source [get_pins bd_48ac design_1_i/ZmodDAC_0/ZmodDAC1411_Controll_0/U0/InstDAC_ClkIO_ODDR/C] -divide_by 1 [get_ports ZmodDAC_0_DAC_CLKIO_0]
-set_output_delay -clock [get_clocks DAC_CLKIN_0] -clock_fall -min -add_delay -1.200 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
-set_output_delay -clock [get_clocks DAC_CLKIN_0] -clock_fall -max -add_delay 0.250 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
-set_output_delay -clock [get_clocks DAC_CLKIN_0] -min -add_delay -1.200 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
-set_output_delay -clock [get_clocks DAC_CLKIN_0] -max -add_delay 0.250 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
+create_generated_clock -name ZmodDAC_0_DAC_CLKIN_0 -source [get_pins design_1_i/ZmodDAC_0/ZmodDAC1411_Controll_0/U0/InstDAC_ClkinODDR/C] -divide_by 1 [get_ports ZmodDAC_0_DAC_CLKIN_0]
+create_generated_clock -name ZmodDAC_0_DAC_CLKIO_0 -source [get_pins design_1_i/ZmodDAC_0/ZmodDAC1411_Controll_0/U0/InstDAC_ClkIO_ODDR/C] -divide_by 1 [get_ports ZmodDAC_0_DAC_CLKIO_0]
+set_output_delay -clock [get_clocks ZmodDAC_0_DAC_CLKIN_0] -clock_fall -min -add_delay -1.200 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
+set_output_delay -clock [get_clocks ZmodDAC_0_DAC_CLKIN_0] -clock_fall -max -add_delay 0.250 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
+set_output_delay -clock [get_clocks ZmodDAC_0_DAC_CLKIN_0] -min -add_delay -1.100 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
+set_output_delay -clock [get_clocks ZmodDAC_0_DAC_CLKIN_0] -max -add_delay 0.130 [get_ports {ZmodDAC_0_DAC_DATA_0[*]}]
+
 
