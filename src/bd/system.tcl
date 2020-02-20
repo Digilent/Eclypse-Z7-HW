@@ -44,6 +44,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xc7z020clg484-1
+   set_property BOARD_PART digilentinc.com:eclypse-z7:part0:1.0 [current_project]
 }
 
 

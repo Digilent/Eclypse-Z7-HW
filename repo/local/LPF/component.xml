@@ -67,7 +67,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0b958d55</spirit:value>
+            <spirit:value>d85c6f2a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -86,7 +86,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0b958d55</spirit:value>
+            <spirit:value>d85c6f2a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -219,10 +219,6 @@
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../../../../Git_ZmodADC_LowLevel/LP.coe</spirit:name>
-        <spirit:userFileType>coe</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>src/Filter_Top_Level.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_e86b51d9</spirit:userFileType>
@@ -243,10 +239,6 @@
       <spirit:file>
         <spirit:name>src/fir_compiler_0.xci</spirit:name>
         <spirit:userFileType>xci</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../../../Git_ZmodADC_LowLevel/LP.coe</spirit:name>
-        <spirit:userFileType>coe</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>src/Filter_Top_Level.vhd</spirit:name>
@@ -311,8 +303,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>Filter_Top_Level_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>23</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2020-02-19T21:13:48Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>28</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2020-02-20T17:35:30Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7b21a58f_ARCHIVE_LOCATION">c:/Vivado_Projects/Filter/Filter.srcs/sources_1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@72678350_ARCHIVE_LOCATION">c:/Vivado_Projects/Filter/Filter.srcs/sources_1</xilinx:tag>
@@ -650,13 +642,102 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@36d9bf0b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@71ecd547_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@37af5aa4_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a5f3b3d_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b43fc63_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55ff9ef7_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@64824ab9_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ba085a1_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d08b80c_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44646b05_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cd74b00_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3975ba41_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f939de8_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@75632819_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c70e9c6_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21557672_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61afd1f7_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fd55c5b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b4854c2_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23f6d965_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36aa544_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b7c66a8_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21150f3b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f906142_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@695a0887_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20a9cfc9_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d5082fe_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b6ec562_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5abbe88e_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1dcbc5f0_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40faa581_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@112b19c7_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73387407_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a229cdd_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d3ce29a_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14514c64_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c014a36_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a18239_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d7866e1_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@231c0bde_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56325ca7_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@753622c8_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76de9925_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@406036f0_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19be2266_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9f5c179_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6632678e_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11a7ba27_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@545b75e4_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39af8012_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74387694_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d6912c2_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26bcc555_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@758d88ba_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4dd5d40b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c932466_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1914160c_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f8aea03_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4fc25be5_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@245f3f4f_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59e59338_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@709b4c6a_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b6e058b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57772f41_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7711ba02_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@149d6d0a_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6357fd1c_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@688ab70d_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1989650a_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@247d2bb3_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b3f5857_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23054f5f_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1da0b6ba_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78ffe269_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@687f2e0b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b1e23f3_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24b1b5da_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46a36ce4_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28dcfcee_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@af522b2_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22065a15_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@192f86fb_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3681e9e9_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ff3a25c_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c886256_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@271f76a4_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76ffc52d_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a36fce7_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1eee6a95_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@328235f_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@319b8713_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a36c41b_ARCHIVE_LOCATION">c:/Vivado_Projects/EclypseHW/repo/local/LPF</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="b61a160d"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="f45be0b5"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="62d17302"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c2904194"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="82871ba2"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="05a1b57d"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
