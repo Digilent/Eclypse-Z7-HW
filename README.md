@@ -13,7 +13,7 @@ Each /master branch of this repository contains the Vivado Project corresponding
 | zmod_adc_dac/master    | Demo supporting the Zmod ADC on Zmod Port A and the Zmod DAC on Zmod Port B              | Yes              |
 | zmod_adc/master        | Demo supporting only the Zmod ADC on Zmod Port A                                         | Yes              |
 | zmod_dac/master        | Demo supporting only the Zmod DAC on Zmod Port B                                         | Yes              |
-| low_level_zmod_adc_dac | Demo implementing an FIR filter with the Zmod ADC and DAC that uses only the PL          | No               |
+| low_level_zmod_adc_dac/master | Demo implementing an FIR filter with the Zmod ADC and DAC that uses only the PL          | No               |
 | oob/master             | Out-of-Box Demo sources. Programmed into the Eclypse Z7's Flash at time of manufacturing | Yes              |
 
 ## Useful Commands
