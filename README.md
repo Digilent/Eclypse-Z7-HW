@@ -19,7 +19,7 @@ For more information on how this project is version controlled, see the README o
 * **Zmod DAC 1411**
 * **Analog Discovery 2**
 * **Discovery BNC Adapter**
-* **Vivado 2019.1 Installation **: To set up Vivado, see the [Installing Vivado and Digilent Board Files Tutorial](https://reference.digilentinc.com/vivado/installing-vivado/start).
+* **Vivado 2019.1 Installation**: To set up Vivado, see the [Installing Vivado and Digilent Board Files Tutorial](https://reference.digilentinc.com/vivado/installing-vivado/start).
 
 ## Setup
 
