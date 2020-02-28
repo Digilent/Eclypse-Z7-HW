@@ -3,9 +3,7 @@
 ## Description
 
 This is a branch of the Eclypse Z7 board containing the Vivado project that is programmed into the Eclypse Z7's SPI flash during manufacturing. The project is configured to work with the PS (processing system) and several GPIO peripherals in order to cycle the RGB LEDs and to report button states to the user over a serial connection. The exported handoff from this project is used in the Eclypse Z7's Software repository's project within the branch of the same name.
-For more information on how our git and project flow is set up please refer to [Eclypse Z7 Git Repositoies](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git)
-
-**Note**: *The Out-of-Box Project does not *
+For more information on how our git and project flow is set up please refer to [Eclypse Z7 Git Repositories](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git)
 
 ## First and Foremost
 
@@ -21,7 +19,7 @@ For more information on how this project is version controlled, see the README o
 
 ## Setup
 
-In order to recreate the Vivado project make sure you follow the instructions provided in the README of the [Digilent Vivado Scripts](https://github.com/Digilent/digilent-vivado-scripts) repository.
+In order to recreate the Vivado project make sure you follow the instructions provided in the *Quick Guide* section of the [Digilent Vivado Scripts](https://github.com/Digilent/digilent-vivado-scripts) repo's README.
 
 ## Next Steps
 
