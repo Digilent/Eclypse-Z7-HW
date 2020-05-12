@@ -1,8 +1,8 @@
-# Eclypse Z7 Zmod DAC 1411 Vivado Project
+# Eclypse Z7 ZmodDAC1411 Vivado Project
 
 ## Description
 
-This is a branch of the Eclypse Z7 board containing the Vivado project with the Zmod DAC set in Zmod connector B. The project is configured to work with the PS (processing system) and to transmit the acquired data over the Axi-Stream interface using the AXI DMA. The exported handoff from this project is used in both the Eclypse Z7's Software and OS repositories' projects within the branch of the same name.
+This is a branch of the Eclypse Z7 board containing the Vivado project with the Zmod DAC plugged into Zmod connector B. The project is configured to work with the PS (processing system) and to transmit the acquired data over the Axi-Stream interface using the AXI DMA. The exported handoff from this project is used in both the Eclypse Z7's Software and OS repositories' projects within the branch of the same name.
 For more information on how our git and project flow is set up please refer to [Eclypse Z7 Git Repositoies](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git)
 
 ## First and Foremost
@@ -15,7 +15,7 @@ For more information on how this project is version controlled, see the README o
 ## Requirements
 
 * **Eclypse Z7**
-* **Zmod DAC 1411**
+* **ZmodDAC1411**
 * **Vivado 2019.1 Installation with Xilinx SDK**: To set up Vivado, see the [Installing Vivado and Digilent Board Files Tutorial](https://reference.digilentinc.com/vivado/installing-vivado/start).
 
 ## Setup
@@ -24,13 +24,13 @@ In order to recreate the Vivado project make sure you follow the instructions pr
 
 ## Next Steps
 
-This demo can be used as a basis for other projects by modifying the hardware platform in the Vivado project's block design. This is strongly linked to both the **Software and the OS projects** on the same branch name. Changing the Vivado project requires an hardware export in the hw_handoff folder from where it should be imported in to the [Software repository](https://github.com/Digilent/Eclypse-Z7-SW/tree/zmod_dac/master) and [OS repository](https://github.com/Digilent/Eclypse-Z7-OS/tree/zmod_dac/master).
+This demo can be used as a basis for other projects by modifying the hardware platform in the Vivado project's block design. This is strongly linked to both the **Software and the OS projects** on the same branch name. Changing the Vivado project requires a hardware export in the hw_handoff folder from where it should be imported into the [Software repository](https://github.com/Digilent/Eclypse-Z7-SW/tree/zmod_dac/master) and [OS repository](https://github.com/Digilent/Eclypse-Z7-OS/tree/zmod_dac/master).
 
 ## Additional Notes
 
 For more information on the Eclypse Z7, visit its [Resource Center](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/start) on the Digilent Wiki.
 
-~~For more information on the Zmod DAC, please visit its [Resource Center](https://reference.digilentinc.com/reference/zmod/zmoddac/start) on the Digilent Wiki.~~
+For more information on the Zmod DAC, please visit its [Resource Center](https://reference.digilentinc.com/reference/zmod/zmoddac/start) on the Digilent Wiki.
 
 For more information on how our git and porject flow is set up please refer to the [Eclypse Z7 Git Repositories](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git) documentation.
 
