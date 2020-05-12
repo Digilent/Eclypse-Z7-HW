@@ -45,4 +45,4 @@ Once the project has been opened, changes can be made to the design, and the bit
 
 For more information on how this project is version controlled, see the README of the [Digilent Vivado Scripts](https://github.com/Digilent/digilent-vivado-scripts) repository.
 
-For more information on the Eclypse Z7, visit it's [Resource Center](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/start) on the Digilent Wiki.
+For more information on the Eclypse Z7, visit its [Resource Center](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/start) on the Digilent Wiki.
