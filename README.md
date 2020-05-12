@@ -1,8 +1,8 @@
-# Eclypse Z7 Zmod ADC 1410 Vivado Project
+# Eclypse Z7 ZmodADC1410 Vivado Project
 
 ## Description
 
-This is a branch of the Eclypse Z7 board containing the Vivado project with the Zmod ADC 1410 set in Zmod connector A. The project is configured to work with the PS (processing system) and to transmit the acquired data over the Axi-Stream interface using the AXI DMA. The exported handoff from this project is used in both the Eclypse Z7's Software and OS repositories' projects within the branch of the same name.
+This is a branch of the Eclypse Z7 board containing the Vivado project with the ZmodADC1410 set in Zmod connector A. The project is configured to work with the PS (processing system) and to transmit the acquired data over the Axi-Stream interface using the AXI DMA. The exported handoff from this project is used in both the Eclypse Z7's Software and OS repositories' projects within the branch of the same name.
 For more information on how our git and project flow is set up please refer to [Eclypse Z7 Git Repositoies](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git)
 
 ## First and Foremost
@@ -15,7 +15,7 @@ For more information on how this project is version controlled, see the README o
 ## Requirements
 
 * **Eclypse Z7**
-* **Zmod ADC 1410**
+* **ZmodADC1410**
 * **Vivado 2019.1 Installation with Xilinx SDK**: To set up Vivado, see the [Installing Vivado and Digilent Board Files Tutorial](https://reference.digilentinc.com/vivado/installing-vivado/start).
 
 ## Setup
@@ -30,7 +30,7 @@ This demo can be used as a basis for other projects by modifying the hardware pl
 
 For more information on the Eclypse Z7, visit its [Resource Center](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/start) on the Digilent Wiki.
 
-~~For more information on the Zmod ADC 1410, please visit its [Resource Center](https://reference.digilentinc.com/reference/zmod/zmodadc/start) on the Digilent Wiki.~~
+For more information on the ZmodADC1410, please visit its [Resource Center](https://reference.digilentinc.com/reference/zmod/zmodadc/start) on the Digilent Wiki.
 
 For more information on how our git and project flow is set up, please refer to the [Eclypse Z7 Git Repositories](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/git) documentation.
 
