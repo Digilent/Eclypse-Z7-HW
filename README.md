@@ -15,7 +15,7 @@ For more information on how this project is version controlled, see the README o
 ## Requirements
 
 * **Eclypse Z7**
-* **Vivado 2019.1 Installation with Xilinx SDK**: To set up Vivado, see the [Installing Vivado and Digilent Board Files Tutorial](https://reference.digilentinc.com/vivado/installing-vivado/start).
+* **Vivado 2021.1 Installation with Vitis 2021.1**: To set up Vivado, see the [Installing Vivado and Digilent Board Files Tutorial](https://reference.digilentinc.com/vivado/installing-vivado/start).
 
 ## Setup
 
@@ -23,7 +23,7 @@ In order to recreate the Vivado project make sure you follow the instructions pr
 
 ## Next Steps
 
-This demo can be used as a basis for other projects by modifying the hardware platform in the Vivado project's block design. This is strongly linked to the **Software projects** on the same branch name. Changing the Vivado project requires an hardware export in the hw_handoff folder from where it should be imported in to the [Software repository](https://github.com/Digilent/Eclypse-Z7-SW/tree/zmod_adc/master).
+This demo can be used as a basis for other projects by modifying the hardware platform in the Vivado project's block design. This is strongly linked to the **Software projects** on the same branch name. Changing the Vivado project requires an hardware export in the hw_handoff folder from where it should be imported in to the [Software repository](https://github.com/Digilent/Eclypse-Z7-SW/tree/oob/master).
 
 ## Additional Notes
 
