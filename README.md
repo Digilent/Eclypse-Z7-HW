@@ -1,5 +1,7 @@
 # Eclypse Z7 Zmod ADC 1410 + Zmod DAC 1411 Low Level Demo
 
+Important note: This demo branch is obsolete and has been replaced by lowlevel_lpf/master, which supports more variants of the Zmod Scope.
+
 ## Description
 
 This is a branch of the Eclypse Z7 board containing the Vivado project with the Zmod ADC 1410 connected to ZMOD A connector on the board and the Zmod DAC 1411 to ZMOD B. The project is a basic exmple of a signal processing system. An analog input connected to the Zmod ADC 1410 CH1 input is converted to a digital format and passed to a digital low pass filter. The filter's output is converted back to an analog format by the Zmod DAC 1411 and can be measured on CH1. The input signal, after the analog to digital conversion, is also looped back to the Zmod DAC 1411 and connected to CH2 output. The project only uses the Zynq's Programmable Logic (PL). A more elaborate description of the project can be found here [Eclypse Z7 Low Level Zmod ADC DAC Demo](https://reference.digilentinc.com/reference/programmable-logic/eclypse-z7/low_level_zmod_adc_dac)   
