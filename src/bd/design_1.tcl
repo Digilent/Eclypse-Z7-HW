@@ -44,6 +44,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xc7z020clg484-1
+   set_property BOARD_PART digilentinc.com:eclypse-z7:part0:1.0 [current_project]
 }
 
 
@@ -130,6 +131,7 @@ xilinx.com:ip:axi_dma:7.1\
 xilinx.com:ip:clk_wiz:6.0\
 xilinx.com:ip:processing_system7:5.5\
 xilinx.com:ip:proc_sys_reset:5.0\
+xilinx.com:ip:xlconstant:1.1\
 "
 
    set list_ips_missing ""
@@ -1118,9 +1120,15 @@ Flash#Quad SPI Flash#GPIO#Quad SPI Flash#ENET Reset#GPIO#GPIO#I2C 1#I2C 1#UART\
 
   # Create instance: rst_clk_wiz_0_axi_lite, and set properties
   set rst_clk_wiz_0_axi_lite [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_clk_wiz_0_axi_lite ]
+  set_property -dict [ list \
+   CONFIG.C_EXT_RST_WIDTH {4} \
+ ] $rst_clk_wiz_0_axi_lite
 
   # Create instance: rst_clk_wiz_0_axi_stream, and set properties
   set rst_clk_wiz_0_axi_stream [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_clk_wiz_0_axi_stream ]
+
+  # Create instance: xlconstant_0, and set properties
+  set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
 
   # Create interface connections
   connect_bd_intf_net -intf_net StreamDecimate_0_axisStreamOut [get_bd_intf_pins StreamDecimate_0/axisStreamOut] [get_bd_intf_pins axi_dma_0/S_AXIS_S2MM]
@@ -1172,10 +1180,13 @@ Flash#Quad SPI Flash#GPIO#Quad SPI Flash#ENET Reset#GPIO#GPIO#I2C 1#I2C 1#UART\
   connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_pins ZmodADC_Controller_0/ADC_InClk] [get_bd_pins clk_wiz_0/clk_out3]
   connect_bd_net -net clk_wiz_0_clk_out4 [get_bd_pins ZmodScopeAXIConfigur_0/s_axi_control_clk] [get_bd_pins axi_dma_0/s_axi_lite_aclk] [get_bd_pins clk_wiz_0/clk_out4] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_clk_wiz_0_axi_lite/slowest_sync_clk]
   connect_bd_net -net dZmodADC_Data_0_1 [get_bd_ports dZmodADC_Data_0] [get_bd_pins ZmodADC_Controller_0/dZmodADC_Data]
-  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins ZmodScopeAXIConfigur_0/s_axi_control_rst_n] [get_bd_pins axi_dma_0/axi_resetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_clk_wiz_0_axi_lite/peripheral_aresetn]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins ZmodScopeAXIConfigur_0/s_axi_control_rst_n] [get_bd_pins axi_dma_0/axi_resetn] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_clk_wiz_0_axi_lite/peripheral_aresetn]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins processing_system7_0/FCLK_CLK0]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_clk_wiz_0_axi_lite/ext_reset_in] [get_bd_pins rst_clk_wiz_0_axi_stream/ext_reset_in]
-  connect_bd_net -net rst_clk_wiz_0_105M_peripheral_aresetn [get_bd_pins StreamDecimate_0/ap_rst_n] [get_bd_pins axi_mem_intercon/ARESETN] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins axi_mem_intercon/S00_ARESETN] [get_bd_pins axi_mem_intercon/S01_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins rst_clk_wiz_0_axi_stream/peripheral_aresetn]
+  connect_bd_net -net rst_clk_wiz_0_105M_peripheral_aresetn [get_bd_pins StreamDecimate_0/ap_rst_n] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins axi_mem_intercon/S00_ARESETN] [get_bd_pins axi_mem_intercon/S01_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins rst_clk_wiz_0_axi_stream/peripheral_aresetn]
+  connect_bd_net -net rst_clk_wiz_0_axi_lite_interconnect_aresetn [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins rst_clk_wiz_0_axi_lite/interconnect_aresetn]
+  connect_bd_net -net rst_clk_wiz_0_axi_stream_interconnect_aresetn [get_bd_pins axi_mem_intercon/ARESETN] [get_bd_pins rst_clk_wiz_0_axi_stream/interconnect_aresetn]
+  connect_bd_net -net xlconstant_0_dout [get_bd_pins rst_clk_wiz_0_axi_lite/dcm_locked] [get_bd_pins rst_clk_wiz_0_axi_stream/dcm_locked] [get_bd_pins xlconstant_0/dout]
 
   # Create address segments
   assign_bd_address -offset 0x00000000 -range 0x40000000 -target_address_space [get_bd_addr_spaces axi_dma_0/Data_SG] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] -force
@@ -1188,6 +1199,7 @@ Flash#Quad SPI Flash#GPIO#Quad SPI Flash#ENET Reset#GPIO#GPIO#I2C 1#I2C 1#UART\
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -1199,6 +1211,4 @@ Flash#Quad SPI Flash#GPIO#Quad SPI Flash#ENET Reset#GPIO#GPIO#I2C 1#I2C 1#UART\
 
 create_root_design ""
 
-
-common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
