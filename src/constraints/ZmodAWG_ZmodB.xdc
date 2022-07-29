@@ -1,0 +1,43 @@
+# Zmod AWG on Zmod Port B
+
+set_property PACKAGE_PIN Y19  [get_ports {dZmodDAC_Data_0[0]}]
+set_property PACKAGE_PIN Y18  [get_ports {dZmodDAC_Data_0[1]}]
+set_property PACKAGE_PIN AB22 [get_ports {dZmodDAC_Data_0[2]}]
+set_property PACKAGE_PIN AB20 [get_ports {dZmodDAC_Data_0[3]}]
+set_property PACKAGE_PIN AA18 [get_ports {dZmodDAC_Data_0[4]}]
+set_property PACKAGE_PIN AA19 [get_ports {dZmodDAC_Data_0[5]}]
+set_property PACKAGE_PIN Y21  [get_ports {dZmodDAC_Data_0[6]}]
+set_property PACKAGE_PIN Y20  [get_ports {dZmodDAC_Data_0[7]}]
+set_property PACKAGE_PIN V15  [get_ports {dZmodDAC_Data_0[8]}]
+set_property PACKAGE_PIN V14  [get_ports {dZmodDAC_Data_0[9]}]
+set_property PACKAGE_PIN AB15 [get_ports {dZmodDAC_Data_0[10]}]
+set_property PACKAGE_PIN AB14 [get_ports {dZmodDAC_Data_0[11]}]
+set_property PACKAGE_PIN W13  [get_ports {dZmodDAC_Data_0[12]}]
+set_property PACKAGE_PIN V13  [get_ports {dZmodDAC_Data_0[13]}]
+
+set_property IOSTANDARD LVCMOS18 [get_ports -filter { name =~ dZmodDAC_Data_0*}]
+
+set_property PACKAGE_PIN W16 [get_ports ZmodDAC_ClkIn_0]
+set_property IOSTANDARD LVCMOS18 [get_ports ZmodDAC_ClkIn_0]
+set_property PACKAGE_PIN W17 [get_ports ZmodDAC_ClkIO_0]
+set_property IOSTANDARD LVCMOS18 [get_ports ZmodDAC_ClkIO_0]
+
+#DAC SPI
+set_property PACKAGE_PIN Y14 [get_ports sZmodDAC_SDIO_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_SDIO_0]
+set_property DRIVE 4 [get_ports sZmodDAC_SDIO_0]
+set_property PACKAGE_PIN AA14 [get_ports sZmodDAC_CS_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_CS_0]
+set_property DRIVE 4 [get_ports sZmodDAC_CS_0]
+set_property PACKAGE_PIN AA13 [get_ports sZmodDAC_SCLK_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_SCLK_0]
+set_property DRIVE 4 [get_ports sZmodDAC_SCLK_0]
+
+set_property PACKAGE_PIN W15 [get_ports sZmodDAC_SetFS1_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_SetFS1_0]
+set_property PACKAGE_PIN Y15 [get_ports sZmodDAC_SetFS2_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_SetFS2_0]
+set_property PACKAGE_PIN Y13 [get_ports sZmodDAC_Reset_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_Reset_0]
+set_property PACKAGE_PIN AA22 [get_ports sZmodDAC_EnOut_0]
+set_property IOSTANDARD LVCMOS18 [get_ports sZmodDAC_EnOut_0]
