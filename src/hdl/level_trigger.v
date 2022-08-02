@@ -21,32 +21,20 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-// compare implemented as a separate module to ease conversion of 
-module level_trigger_compare (
-    input wire signed [15:0] data,
-    input wire signed [15:0] data_previous,
-    input wire signed [15:0] level,
-    output wire trig_rising,
-    output wire trig_falling
-);
-    assign trig_rising  = (data >= level) && (data_previous < level);
-    assign trig_falling = (data <= level) && (data_previous > level);
-endmodule
-
 module level_trigger (
-    input  wire stream_clk,
-    input  wire resetn,
+    input wire stream_clk,
+    input wire resetn,
     
-    output wire s_tready,
-    input  wire s_tvalid,
+    output wire        s_tready,
+    input  wire        s_tvalid,
     input  wire [31:0] s_tdata,
     
-    input  wire m_tready,
-    output wire m_tvalid,
+    input  wire        m_tready,
+    output wire        m_tvalid,
     output wire [31:0] m_tdata,
     
-    input  wire signed [15:0] ch1_level,
-    input  wire [15:0] ch2_level,
+    input wire signed [15:0] ch1_level,
+    input wire signed [15:0] ch2_level,
     
     output wire ch1_rising,
     output wire ch1_falling,
@@ -55,14 +43,10 @@ module level_trigger (
 );
     
     wire signed [15:0] ch1 = s_tdata[15:0];
-    wire [15:0] ch2 = s_tdata[31:16];
-    reg signed [15:0] ch1_prev;
-    reg [15:0] ch2_prev;
+    wire signed [15:0] ch2 = s_tdata[31:16];
     
-    wire ch1_rising_raw;
-    wire ch1_falling_raw;
-    wire ch2_rising_raw;
-    wire ch2_falling_raw;
+    reg signed [15:0] ch1_prev;
+    reg signed [15:0] ch2_prev;
     
     // indicates whether data is present in the _prev registers.
     // used to mask out spurious triggers on the first data beat after reset
@@ -84,27 +68,9 @@ module level_trigger (
         end
     end
 
-    level_trigger_compare ch1_compare (
-        .data          (ch1),
-        .data_previous (ch1_prev),
-        .level         (ch1_level),
-        .trig_rising   (ch1_rising),
-        .trig_falling  (ch1_falling)
-    );
-    
-//    wire ch1_rising_raw;
-//    wire ch1_falling_raw;
-    assign ch2_rising = ch2_rising_raw & loaded;
-    assign ch2_falling = ch2_falling & loaded;
+    assign ch2_rising  = (ch2 >= ch2_level) && (ch2_prev < ch2_level) && (loaded == 1'b1);
+    assign ch2_falling = (ch2 <= ch2_level) && (ch2_prev > ch2_level) && (loaded == 1'b1);
     
     assign ch1_rising  = (ch1 >= ch1_level) && (ch1_prev < ch1_level) && (loaded == 1'b1);
     assign ch1_falling = (ch1 <= ch1_level) && (ch1_prev > ch1_level) && (loaded == 1'b1);
-    
-    level_trigger_compare ch2_compare (
-        .data          (ch2),
-        .data_previous (ch2_prev),
-        .level         (ch2_level),
-        .trig_rising   (ch2_rising_raw),
-        .trig_falling  (ch2_falling_raw)
-    );
 endmodule
