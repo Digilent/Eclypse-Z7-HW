@@ -436,6 +436,11 @@ proc create_hier_cell_TriggerDetector_0 { parentCell nameHier } {
    CONFIG.FREQ_HZ {125000000} \
    CONFIG.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK1} \
  ] [get_bd_intf_pins /ZmodScope_PortA/TriggerDetector_0/inject_tlast_on_trig_0/m]
+ 
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {125000000} \
+   CONFIG.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK1} \
+ ] [get_bd_intf_pins /ZmodScope_PortA/TriggerDetector_0/inject_tlast_on_trig_0/s]
 
   # Create instance: stream_rst, and set properties
   set stream_rst [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset stream_rst ]
