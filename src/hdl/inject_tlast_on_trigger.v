@@ -32,12 +32,12 @@ module inject_tlast_on_trigger (
     input  wire [31:0] trigger, // 32 trigger input bits
     
     //software register ports
-    input  wire [31:0] trigger_enable_i, // used to mask the trigger inputs, intended to be connected to a software-controlled reg
-    input  wire [31:0] trigger_to_last_beats_i, // number of beats between trigger signal and tlast, such that the address of the tlast data beat is trigger_to_last_beats plus the address of the trigger beat 
-    output wire        idle_o, // done status, indicating a trigger has occurred and a last beat issued 
-    input  wire        start_i, // acknowledges the done status, returns hardware to prebuffering, if reconfiguring this between acquisitions is required, 
-    output wire [31:0] trigger_detected_o, // software-readable register storing the actual trigger condition that occurred for the last transfer  
-    input  wire [31:0] prebuffer_beats_i, // number of beats that need to be prebuffered before the trigger is can occur. Includes the trigger beat.
+    input  wire [31:0] trigger_enable, // used to mask the trigger inputs, intended to be connected to a software-controlled reg
+    input  wire [31:0] trigger_to_last_beats, // number of beats between trigger signal and tlast, such that the address of the tlast data beat is trigger_to_last_beats plus the address of the trigger beat 
+    output wire        idle, // done status, indicating a trigger has occurred and a last beat issued 
+    input  wire        start, // acknowledges the done status, returns hardware to prebuffering, if reconfiguring this between acquisitions is required, 
+    output wire [31:0] trigger_detected, // software-readable register storing the actual trigger condition that occurred for the last transfer  
+    input  wire [31:0] prebuffer_beats, // number of beats that need to be prebuffered before the trigger is can occur. Includes the trigger beat.
     // note: the sum of prebuffer_beats and trigger_to_last_beats must be greater than or equal to the software circle buffer size in words
     
     // axi4-stream slave interface, always active
@@ -54,31 +54,7 @@ module inject_tlast_on_trigger (
     output wire        m_tlast,
     
     output wire [1:0] dbg_state
-);
-
-    // bring AXI4-lite inputs into the stream clock domain
-    wire [31:0] trigger_enable; // used to mask the trigger inputs, intended to be connected to a software-controlled reg
-    wire [31:0] trigger_to_last_beats; // number of beats between trigger signal and tlast, such that the address of the tlast data beat is trigger_to_last_beats plus the address of the trigger beat 
-    wire        idle; // done status, indicating a trigger has occurred and a last beat issued 
-    wire        start; // acknowledges the done status, returns hardware to prebuffering, if reconfiguring this between acquisitions is required, 
-    wire [31:0] trigger_detected; // software-readable register storing the actual trigger condition that occurred for the last transfer  
-    wire [31:0] prebuffer_beats;
-    // false paths (FIXME add constraints for this), only read or written during idle state
-    assign trigger_enable = trigger_enable_i;
-    assign trigger_to_last_beats = trigger_to_last_beats_i;
-    assign trigger_detected_o = trigger_detected;
-    assign prebuffer_beats = prebuffer_beats_i;
-    // active CDCs for control signals
-    localparam CDC_STAGES = 2;
-    reg [CDC_STAGES-1:0] idle_cdc_flops;
-    reg [CDC_STAGES-1:0] start_cdc_flops;
-    always@(posedge stream_clk) begin
-        idle_cdc_flops <= {idle_cdc_flops[CDC_STAGES-2:0], idle};
-        start_cdc_flops <= {start_cdc_flops[CDC_STAGES-2:0], start_i};
-    end
-    assign idle_o = idle_cdc_flops[CDC_STAGES-1];
-    assign start = start_cdc_flops[CDC_STAGES-1];
-
+);    
     // control state machine
     localparam S_IDLE = 0; // wait for start signal assert, then go to prebuffer
     localparam S_PREBUFFER = 1; // enable output stream and transmit 'prebuffer_beats' data beats, then go to await
