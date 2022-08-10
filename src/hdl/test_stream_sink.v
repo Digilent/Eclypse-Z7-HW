@@ -30,13 +30,20 @@ module test_stream_sink(
     input wire clk,
     input wire resetn,
     
-    input wire start,
+    input  wire start,
     output wire idle,
     
-    input wire axis_tvalid,
-    input wire [31:0] axis_tdata,
-    output wire axis_tready,
-    input wire axis_tlast,
+    input  wire        s_tvalid,
+    input  wire [31:0] s_tdata,
+    output wire        s_tready,
+    input  wire        s_tlast,
+    
+    input  wire        m_tready,
+    output wire        m_tvalid,
+    output wire [31:0] m_tdata,
+    output wire        m_tlast,
+    
+    input wire decouple_streams,
     
     output wire [31:0] beat_count, // number of cycles since start where tready and tvalid were both asserted
     output wire [31:0] miss_count, // number of cycles since start where only tready was asserted - in combination with beats, indicates bandwidth utilization
@@ -45,7 +52,10 @@ module test_stream_sink(
     wire reset = ~resetn;
     wire [31:0] expected_tdata;
 
-    assign axis_tready = ~idle;
+    assign s_tready = (decouple_streams) ? (~idle) : (m_tready);
+    assign m_tvalid = (decouple_streams) ? (s_tvalid) : (1'b0);
+    assign m_tdata = s_tdata;
+    assign m_tlast = s_tlast;
 
     counter #(
         .HIGH         (32'hffffffff)
@@ -53,7 +63,7 @@ module test_stream_sink(
         .clock        (clk),
         .clock_enable (1'b1),
         .sync_reset   (reset | start),
-        .enable       (~idle & axis_tready & axis_tvalid),
+        .enable       (~idle & s_tready & s_tvalid),
         .count        (beat_count),
         .tc           ()
     );
@@ -64,7 +74,7 @@ module test_stream_sink(
         .clock        (clk),
         .clock_enable (1'b1),
         .sync_reset   (reset | start),
-        .enable       (~idle & axis_tready & ~axis_tvalid),
+        .enable       (~idle & s_tready & ~s_tvalid),
         .count        (miss_count),
         .tc           ()
     );
@@ -75,8 +85,8 @@ module test_stream_sink(
     ) expected_tdata_reg_inst (
         .clock        (clk),
         .reset        (reset | start),
-        .write_enable (axis_tready & axis_tvalid),
-        .data_i       (axis_tdata + 1'b1),
+        .write_enable (s_tready & s_tvalid),
+        .data_i       (s_tlast ? 'b0 : (s_tdata + 1'b1)),
         .data_o       (expected_tdata)
     );
     
@@ -86,7 +96,7 @@ module test_stream_sink(
         .clock        (clk),
         .clock_enable (1'b1),
         .sync_reset   (reset | start),
-        .enable       (~idle & axis_tready & axis_tvalid & (expected_tdata != axis_tdata)),
+        .enable       (~idle & s_tready & s_tvalid & (expected_tdata != s_tdata)),
         .count        (error_count),
         .tc           ()
     );
@@ -97,8 +107,8 @@ module test_stream_sink(
     ) idle_reg_inst (
         .clock        (clk),
         .reset        (reset),
-        .write_enable (start | axis_tlast),
-        .data_i       (axis_tlast),
+        .write_enable (start | s_tlast),
+        .data_i       (s_tlast),
         .data_o       (idle)
     );
 endmodule
