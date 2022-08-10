@@ -101,7 +101,8 @@ module inject_tlast_on_trigger (
             end
         end
         S_PREBUFFER: begin
-            if (beat_count == prebuffer_beats - 2) begin
+            // note: it doesn't hurt to prebuffer a couple of extra samples, which is what happens when prebuffer_beats is 0 or 1. this is not the case for trigger_to_tlast, see below.
+            if (beat_count == prebuffer_beats - 2 || prebuffer_beats < 2) begin
                 next_state = S_AWAIT;
             end else begin
                 next_state = state;
@@ -147,7 +148,9 @@ module inject_tlast_on_trigger (
         .tc           ()
     );
     
-    // trigger_to_last_beats equal to 0 or 1 not supported. this means that a trigger cannot occur on either the final or second-to-last beat of an acquisition
+    // trigger_to_last_beats equal to 0 or 1 not supported due to the two-clock-cycle latency through the handshake -> beat counter -> tlast reg path.
+    // adding a couple registers to both the axi-stream data and valid paths could help avoid the need to "look ahead" on the counter like this.
+    // could alternatively consider adding a config_error port that reports to the PS when an invalid selection has been made. 
     assign next_tlast = (beat_count == trigger_to_last_beats - 2);
     
     register #(
