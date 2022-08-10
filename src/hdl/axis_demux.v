@@ -26,7 +26,7 @@ module axis_demux(
     input  wire        s0_tvalid,
     output wire        s0_tready,
     input  wire [31:0] s0_tdata,
-    input  wire        select,
+    input  wire        stream_select,
     output wire        m0_tvalid,
     input  wire        m0_tready,
     output wire [31:0] m0_tdata,
@@ -43,7 +43,7 @@ module axis_demux(
             select_reg <= 0;
         end else begin
             if (s0_tready == 1'b1 || s0_tvalid == 1'b0) begin
-                select_reg <= select;
+                select_reg <= stream_select;
             end else begin
                 select_reg <= select_reg;
             end
