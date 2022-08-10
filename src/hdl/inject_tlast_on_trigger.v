@@ -71,7 +71,7 @@ module inject_tlast_on_trigger (
     wire axis_m_output_enable;
     wire tlast_reg_enable;
     wire counter_enable;
-    wire trigger_masked;
+    wire [31:0] trigger_masked;
     wire counter_reset;
     
     assign dbg_state = state;
