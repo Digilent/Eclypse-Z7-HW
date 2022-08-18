@@ -53,7 +53,7 @@ module test_stream_sink(
     wire [31:0] expected_tdata;
 
     assign s_tready = (decouple_streams) ? (~idle) : (m_tready);
-    assign m_tvalid = (decouple_streams) ? (s_tvalid) : (1'b0);
+    assign m_tvalid = (decouple_streams) ? (1'b0) : (s_tvalid);
     assign m_tdata = s_tdata;
     assign m_tlast = s_tlast;
 
