@@ -149,6 +149,7 @@ xilinx.com:ip:xlconcat:*\
 xilinx.com:ip:xlslice:*\
 digilent.com:user:ZmodScopeAXIConfiguration:*\
 digilent.com:user:ZmodScopeController:*\
+xilinx.com:ip:ila:*\
 "
 
    set list_ips_missing ""
@@ -279,11 +280,11 @@ proc create_hier_cell_ZmodScopeFrontend_0 { parentCell nameHier } {
   set ZmodScopeController_0 [ create_bd_cell -type ip -vlnv digilent.com:user:ZmodScopeController ZmodScopeController_0 ]
   set_property -dict [ list \
    CONFIG.kADC_ClkDiv {1} \
-   CONFIG.kADC_Width {10} \
+   CONFIG.kADC_Width {14} \
    CONFIG.kExtCmdInterfaceEn {false} \
    CONFIG.kExtSyncEn {false} \
-   CONFIG.kSamplingPeriod {8000} \
-   CONFIG.kZmodID {2} \
+   CONFIG.kSamplingPeriod {10000} \
+   CONFIG.kZmodID {0} \
  ] $ZmodScopeController_0
 
   # Create instance: axis_clock_converter_0, and set properties
@@ -292,16 +293,16 @@ proc create_hier_cell_ZmodScopeFrontend_0 { parentCell nameHier } {
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz clk_wiz_0 ]
   set_property -dict [ list \
-   CONFIG.CLKOUT1_JITTER {125.247} \
-   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {125} \
-   CONFIG.CLKOUT2_JITTER {125.247} \
+   CONFIG.CLKOUT1_JITTER {130.958} \
+   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {100} \
+   CONFIG.CLKOUT2_JITTER {130.958} \
    CONFIG.CLKOUT2_PHASE_ERROR {98.575} \
-   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
+   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {100} \
    CONFIG.CLKOUT2_USED {true} \
    CONFIG.CLK_OUT1_PORT {adc_clk} \
    CONFIG.CLK_OUT2_PORT {sample_clk} \
-   CONFIG.MMCM_CLKOUT0_DIVIDE_F {8.000} \
-   CONFIG.MMCM_CLKOUT1_DIVIDE {8} \
+   CONFIG.MMCM_CLKOUT0_DIVIDE_F {10.000} \
+   CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
    CONFIG.NUM_OUT_CLKS {2} \
    CONFIG.USE_LOCKED {true} \
    CONFIG.USE_RESET {false} \
@@ -310,25 +311,47 @@ proc create_hier_cell_ZmodScopeFrontend_0 { parentCell nameHier } {
   # Create instance: fclk1_rst2, and set properties
   set fclk1_rst2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset fclk1_rst2 ]
 
+  # Create instance: ila_0, and set properties
+  set ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila ila_0 ]
+  set_property -dict [ list \
+   CONFIG.C_ENABLE_ILA_AXI_MON {false} \
+   CONFIG.C_MONITOR_TYPE {Native} \
+   CONFIG.C_NUM_OF_PROBES {8} \
+   CONFIG.C_PROBE0_WIDTH {18} \
+   CONFIG.C_PROBE1_WIDTH {18} \
+   CONFIG.C_PROBE2_WIDTH {18} \
+   CONFIG.C_PROBE3_WIDTH {18} \
+   CONFIG.C_PROBE4_WIDTH {18} \
+   CONFIG.C_PROBE5_WIDTH {18} \
+   CONFIG.C_PROBE6_WIDTH {18} \
+   CONFIG.C_PROBE7_WIDTH {18} \
+ ] $ila_0
+
   # Create instance: resolution, and set properties
   set resolution [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice resolution ]
   set_property -dict [ list \
    CONFIG.DIN_FROM {13} \
-   CONFIG.DIN_TO {4} \
+   CONFIG.DIN_TO {0} \
    CONFIG.DIN_WIDTH {14} \
-   CONFIG.DOUT_WIDTH {10} \
+   CONFIG.DOUT_WIDTH {14} \
  ] $resolution
 
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins s_axi_control] [get_bd_intf_pins ZmodScopeAXIConfigur_0/s_axi_control]
-  connect_bd_intf_net -intf_net ZmodScopeAXIConfigur_0_ExtCh1Calib [get_bd_intf_pins ZmodScopeAXIConfigur_0/ExtCh1Calib] [get_bd_intf_pins ZmodScopeController_0/ExtCh1Calib]
-  connect_bd_intf_net -intf_net ZmodScopeAXIConfigur_0_ExtCh2Calib [get_bd_intf_pins ZmodScopeAXIConfigur_0/ExtCh2Calib] [get_bd_intf_pins ZmodScopeController_0/ExtCh2Calib]
   connect_bd_intf_net -intf_net ZmodScopeController_0_DataStream [get_bd_intf_pins ZmodScopeController_0/DataStream] [get_bd_intf_pins axis_clock_converter_0/S_AXIS]
   connect_bd_intf_net -intf_net axis_clock_converter_0_M_AXIS [get_bd_intf_pins DataStream] [get_bd_intf_pins axis_clock_converter_0/M_AXIS]
 
   # Create port connections
   connect_bd_net -net Net [get_bd_pins sZmodADC_SDIO_0] [get_bd_pins ZmodScopeController_0/sZmodADC_SDIO]
   connect_bd_net -net ZmodDcoClk_0_1 [get_bd_pins ZmodDcoClk_0] [get_bd_pins ZmodScopeController_0/ZmodDcoClk]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh1HgAddCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh1HgAddCoef] [get_bd_pins ZmodScopeController_0/cExtCh1HgAddCoef] [get_bd_pins ila_0/probe3]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh1HgMultCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh1HgMultCoef] [get_bd_pins ZmodScopeController_0/cExtCh1HgMultCoef] [get_bd_pins ila_0/probe0]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh1LgAddCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh1LgAddCoef] [get_bd_pins ZmodScopeController_0/cExtCh1LgAddCoef] [get_bd_pins ila_0/probe2]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh1LgMultCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh1LgMultCoef] [get_bd_pins ZmodScopeController_0/cExtCh1LgMultCoef] [get_bd_pins ila_0/probe1]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh2HgAddCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh2HgAddCoef] [get_bd_pins ZmodScopeController_0/cExtCh2HgAddCoef] [get_bd_pins ila_0/probe7]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh2HgMultCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh2HgMultCoef] [get_bd_pins ZmodScopeController_0/cExtCh2HgMultCoef] [get_bd_pins ila_0/probe4]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh2LgAddCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh2LgAddCoef] [get_bd_pins ZmodScopeController_0/cExtCh2LgAddCoef] [get_bd_pins ila_0/probe6]
+  connect_bd_net -net ZmodScopeAXIConfigur_0_cExtCh2LgMultCoef [get_bd_pins ZmodScopeAXIConfigur_0/cExtCh2LgMultCoef] [get_bd_pins ZmodScopeController_0/cExtCh2LgMultCoef] [get_bd_pins ila_0/probe5]
   connect_bd_net -net ZmodScopeAXIConfigur_0_sCh1CouplingConfig [get_bd_pins ZmodScopeAXIConfigur_0/sCh1CouplingConfig] [get_bd_pins ZmodScopeController_0/sCh1CouplingConfig]
   connect_bd_net -net ZmodScopeAXIConfigur_0_sCh1GainConfig [get_bd_pins ZmodScopeAXIConfigur_0/sCh1GainConfig] [get_bd_pins ZmodScopeController_0/sCh1GainConfig]
   connect_bd_net -net ZmodScopeAXIConfigur_0_sCh2CouplingConfig [get_bd_pins ZmodScopeAXIConfigur_0/sCh2CouplingConfig] [get_bd_pins ZmodScopeController_0/sCh2CouplingConfig]
@@ -357,7 +380,7 @@ proc create_hier_cell_ZmodScopeFrontend_0 { parentCell nameHier } {
   connect_bd_net -net ZmodScopeController_0_sZmodRelayComL [get_bd_pins sZmodRelayComL_0] [get_bd_pins ZmodScopeController_0/sZmodRelayComL]
   connect_bd_net -net clk_wiz_0_adc_clk [get_bd_pins ZmodScopeController_0/ADC_InClk] [get_bd_pins clk_wiz_0/adc_clk]
   connect_bd_net -net clk_wiz_0_locked [get_bd_pins clk_wiz_0/locked] [get_bd_pins fclk1_rst2/dcm_locked]
-  connect_bd_net -net clk_wiz_0_sample_clk [get_bd_pins ZmodScopeAXIConfigur_0/ADC_SamplingClk] [get_bd_pins ZmodScopeController_0/ADC_SamplingClk] [get_bd_pins axis_clock_converter_0/s_axis_aclk] [get_bd_pins clk_wiz_0/sample_clk] [get_bd_pins fclk1_rst2/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_0_sample_clk [get_bd_pins ZmodScopeAXIConfigur_0/ADC_SamplingClk] [get_bd_pins ZmodScopeController_0/ADC_SamplingClk] [get_bd_pins axis_clock_converter_0/s_axis_aclk] [get_bd_pins clk_wiz_0/sample_clk] [get_bd_pins fclk1_rst2/slowest_sync_clk] [get_bd_pins ila_0/clk]
   connect_bd_net -net dZmodADC_Data_0_1 [get_bd_pins dZmodADC_Data_0] [get_bd_pins resolution/Din]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins ext_reset_in] [get_bd_pins fclk1_rst2/ext_reset_in]
   connect_bd_net -net fclk1_rst2_peripheral_aresetn [get_bd_pins ZmodScopeController_0/aRst_n] [get_bd_pins axis_clock_converter_0/s_axis_aresetn] [get_bd_pins fclk1_rst2/peripheral_aresetn]
@@ -570,10 +593,6 @@ proc create_hier_cell_TriggerDetector_0 { parentCell nameHier } {
    CONFIG.FREQ_HZ {125000000} \
    CONFIG.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK1} \
  ] [get_bd_intf_pins /ZmodScope_PortA/TriggerDetector_0/inject_tlast_on_trig_0/m]
-
-  set_property -dict [ list \
-   CONFIG.FREQ_HZ {125000000} \
- ] [get_bd_intf_pins /ZmodScope_PortA/TriggerDetector_0/inject_tlast_on_trig_0/s]
 
   # Create instance: stream_rst, and set properties
   set stream_rst [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset stream_rst ]
