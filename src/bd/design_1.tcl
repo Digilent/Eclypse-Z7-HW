@@ -142,9 +142,9 @@ digilent.com:user:ZmodAwgAxiConfiguration:*\
 xilinx.com:ip:clk_wiz:*\
 digilent.com:user:AxiStreamSourceMonitor:*\
 digilent.com:user:TriggerControl:*\
+xilinx.com:ip:axis_register_slice:*\
 digilent.com:user:ManualTrigger:*\
 digilent.com:user:UserRegisters:*\
-xilinx.com:ip:axis_register_slice:*\
 xilinx.com:ip:xlconcat:*\
 xilinx.com:ip:xlslice:*\
 digilent.com:user:ZmodScopeAXIConfiguration:*\
@@ -475,6 +475,10 @@ proc create_hier_cell_TriggerGenerator { parentCell nameHier } {
    CONFIG.FREQ_HZ {125000000} \
  ] [get_bd_intf_pins /ZmodScope_PortA/TriggerGenerator/level_trigger_0/m]
 
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {125000000} \
+ ] [get_bd_intf_pins /ZmodScope_PortA/TriggerGenerator/level_trigger_0/s]
+
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat xlconcat_0 ]
   set_property -dict [ list \
@@ -578,6 +582,9 @@ proc create_hier_cell_TriggerDetector_0 { parentCell nameHier } {
   # Create instance: axi_lite_rst, and set properties
   set axi_lite_rst [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset axi_lite_rst ]
 
+  # Create instance: axis_register_slice_0, and set properties
+  set axis_register_slice_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_register_slice axis_register_slice_0 ]
+
   # Create instance: inject_tlast_on_trig_0, and set properties
   set block_name inject_tlast_on_trigger
   set block_cell_name inject_tlast_on_trig_0
@@ -594,13 +601,17 @@ proc create_hier_cell_TriggerDetector_0 { parentCell nameHier } {
    CONFIG.CLK_DOMAIN {design_1_processing_system7_0_0_FCLK_CLK1} \
  ] [get_bd_intf_pins /ZmodScope_PortA/TriggerDetector_0/inject_tlast_on_trig_0/m]
 
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {125000000} \
+ ] [get_bd_intf_pins /ZmodScope_PortA/TriggerDetector_0/inject_tlast_on_trig_0/s]
+
   # Create instance: stream_rst, and set properties
   set stream_rst [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset stream_rst ]
 
   # Create instance: system_ila_1, and set properties
   set system_ila_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila system_ila_1 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {24} \
+   CONFIG.C_BRAM_CNT {12.5} \
    CONFIG.C_DATA_DEPTH {2048} \
    CONFIG.C_MON_TYPE {MIX} \
    CONFIG.C_NUM_MONITOR_SLOTS {2} \
@@ -613,9 +624,10 @@ proc create_hier_cell_TriggerDetector_0 { parentCell nameHier } {
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins axis_in] [get_bd_intf_pins inject_tlast_on_trig_0/s]
   connect_bd_intf_net -intf_net [get_bd_intf_nets Conn1] [get_bd_intf_pins axis_in] [get_bd_intf_pins system_ila_1/SLOT_0_AXIS]
-  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axis_out] [get_bd_intf_pins inject_tlast_on_trig_0/m]
-  connect_bd_intf_net -intf_net [get_bd_intf_nets Conn2] [get_bd_intf_pins axis_out] [get_bd_intf_pins system_ila_1/SLOT_1_AXIS]
+  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axis_register_slice_0/S_AXIS] [get_bd_intf_pins inject_tlast_on_trig_0/m]
+  connect_bd_intf_net -intf_net [get_bd_intf_nets Conn2] [get_bd_intf_pins axis_register_slice_0/S_AXIS] [get_bd_intf_pins system_ila_1/SLOT_1_AXIS]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins s_axi_control] [get_bd_intf_pins TriggerControl_0/s_axi_control]
+  connect_bd_intf_net -intf_net axis_register_slice_0_M_AXIS [get_bd_intf_pins axis_out] [get_bd_intf_pins axis_register_slice_0/M_AXIS]
 
   # Create port connections
   connect_bd_net -net TriggerControl_0_rPrebufferBeats [get_bd_pins TriggerControl_0/rPrebufferBeats] [get_bd_pins inject_tlast_on_trig_0/prebuffer_beats] [get_bd_pins system_ila_1/probe7]
@@ -623,9 +635,9 @@ proc create_hier_cell_TriggerDetector_0 { parentCell nameHier } {
   connect_bd_net -net TriggerControl_0_rTriggerEnable [get_bd_pins TriggerControl_0/rTriggerEnable] [get_bd_pins inject_tlast_on_trig_0/trigger_enable] [get_bd_pins system_ila_1/probe4]
   connect_bd_net -net TriggerControl_0_rTriggerToLastBeats [get_bd_pins TriggerControl_0/rTriggerToLastBeats] [get_bd_pins inject_tlast_on_trig_0/trigger_to_last_beats] [get_bd_pins system_ila_1/probe5]
   connect_bd_net -net axi_lite_rst_peripheral_aresetn [get_bd_pins TriggerControl_0/s_axi_areset_n] [get_bd_pins axi_lite_rst/peripheral_aresetn]
-  connect_bd_net -net clk1_1 [get_bd_pins stream_clk] [get_bd_pins TriggerControl_0/stream_clk] [get_bd_pins inject_tlast_on_trig_0/stream_clk] [get_bd_pins stream_rst/slowest_sync_clk] [get_bd_pins system_ila_1/clk]
+  connect_bd_net -net clk1_1 [get_bd_pins stream_clk] [get_bd_pins TriggerControl_0/stream_clk] [get_bd_pins axis_register_slice_0/aclk] [get_bd_pins inject_tlast_on_trig_0/stream_clk] [get_bd_pins stream_rst/slowest_sync_clk] [get_bd_pins system_ila_1/clk]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins ext_reset_in] [get_bd_pins axi_lite_rst/ext_reset_in] [get_bd_pins stream_rst/ext_reset_in]
-  connect_bd_net -net fclk1_rst2_peripheral_aresetn [get_bd_pins inject_tlast_on_trig_0/stream_resetn] [get_bd_pins stream_rst/peripheral_aresetn] [get_bd_pins system_ila_1/resetn]
+  connect_bd_net -net fclk1_rst2_peripheral_aresetn [get_bd_pins axis_register_slice_0/aresetn] [get_bd_pins inject_tlast_on_trig_0/stream_resetn] [get_bd_pins stream_rst/peripheral_aresetn] [get_bd_pins system_ila_1/resetn]
   connect_bd_net -net inject_tlast_on_trig_0_dbg_state [get_bd_pins inject_tlast_on_trig_0/dbg_state] [get_bd_pins system_ila_1/probe2]
   connect_bd_net -net inject_tlast_on_trig_0_idle_o [get_bd_pins TriggerControl_0/rIdle] [get_bd_pins inject_tlast_on_trig_0/idle] [get_bd_pins system_ila_1/probe0]
   connect_bd_net -net inject_tlast_on_trig_0_trigger_detected_o [get_bd_pins TriggerControl_0/rTriggerDetected] [get_bd_pins inject_tlast_on_trig_0/trigger_detected] [get_bd_pins system_ila_1/probe1]
