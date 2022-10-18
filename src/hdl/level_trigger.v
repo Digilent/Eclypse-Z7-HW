@@ -42,8 +42,8 @@ module level_trigger (
     output wire ch2_falling
 );
     
-    wire signed [15:0] ch1 = s_tdata[15:0];
-    wire signed [15:0] ch2 = s_tdata[31:16];
+    wire signed [15:0] ch1 = s_tdata[31:16];
+    wire signed [15:0] ch2 = s_tdata[15:0];
     
     reg signed [15:0] ch1_prev;
     reg signed [15:0] ch2_prev;
