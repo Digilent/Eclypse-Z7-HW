@@ -244,6 +244,7 @@ proc create_hier_cell_ZmodDAC_0 { parentCell nameHier } {
    CONFIG.c_include_s2mm {0} \
    CONFIG.c_include_sg {0} \
    CONFIG.c_sg_include_stscntrl_strm {0} \
+   CONFIG.c_sg_length_width {16} \
  ] $axi_dma_1
 
   # Create interface connections
