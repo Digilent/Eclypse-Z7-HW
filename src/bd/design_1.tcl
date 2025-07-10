@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2024.1
+set scripts_vivado_version 2025.1
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -125,9 +125,9 @@ if { $bCheckIPs == 1 } {
 natinst.com:user:Filter_Top_Level:*\
 xilinx.com:ip:proc_sys_reset:*\
 xilinx.com:ip:clk_wiz:*\
-xilinx.com:ip:xlconstant:*\
 digilent.com:user:ZmodScopeController:*\
 digilent.com:user:ZmodAWGController:*\
+xilinx.com:inline_hdl:ilconstant:*\
 "
 
    set list_ips_missing ""
@@ -267,24 +267,6 @@ proc create_root_design { parentCell } {
   ] $clk_wiz_0
 
 
-  # Create instance: xlconstant_0, and set properties
-  set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_0 ]
-
-  # Create instance: xlconstant_1, and set properties
-  set xlconstant_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_1 ]
-  set_property CONFIG.CONST_VAL {0} $xlconstant_1
-
-
-  # Create instance: xlconstant_2, and set properties
-  set xlconstant_2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_2 ]
-  set_property CONFIG.CONST_VAL {0} $xlconstant_2
-
-
-  # Create instance: xlconstant_3, and set properties
-  set xlconstant_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_3 ]
-  set_property CONFIG.CONST_VAL {1} $xlconstant_3
-
-
   # Create instance: ZmodADC_Controller_0, and set properties
   set ZmodADC_Controller_0 [ create_bd_cell -type ip -vlnv digilent.com:user:ZmodScopeController ZmodADC_Controller_0 ]
   set_property -dict [list \
@@ -313,56 +295,122 @@ proc create_root_design { parentCell } {
   ] $ZmodDAC1411_Controll_0
 
 
-  # Create instance: xlconstant_4, and set properties
-  set xlconstant_4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_4 ]
+  # Create instance: ilconstant_0, and set properties
+  set ilconstant_0 [ create_bd_cell -type inline_hdl -vlnv xilinx.com:inline_hdl:ilconstant ilconstant_0 ]
+  set_property CONFIG.CONST_VAL {0} $ilconstant_0
+
+
+  # Create instance: ilconstant_1, and set properties
+  set ilconstant_1 [ create_bd_cell -type inline_hdl -vlnv xilinx.com:inline_hdl:ilconstant ilconstant_1 ]
+
+  # Create instance: ilconstant_2, and set properties
+  set ilconstant_2 [ create_bd_cell -type inline_hdl -vlnv xilinx.com:inline_hdl:ilconstant ilconstant_2 ]
+
+  # Create instance: ilconstant_3, and set properties
+  set ilconstant_3 [ create_bd_cell -type inline_hdl -vlnv xilinx.com:inline_hdl:ilconstant ilconstant_3 ]
+  set_property CONFIG.CONST_VAL {0} $ilconstant_3
+
+
+  # Create instance: ilconstant_4, and set properties
+  set ilconstant_4 [ create_bd_cell -type inline_hdl -vlnv xilinx.com:inline_hdl:ilconstant ilconstant_4 ]
 
   # Create interface connections
   connect_bd_intf_net -intf_net Filter_Top_Level_0_OutDataStream [get_bd_intf_pins Filter_Top_Level_0/OutDataStream] [get_bd_intf_pins ZmodDAC1411_Controll_0/InputDataStream]
   connect_bd_intf_net -intf_net ZmodADC_Controller_0_DataStream [get_bd_intf_pins Filter_Top_Level_0/InDataStream] [get_bd_intf_pins ZmodADC_Controller_0/DataStream]
 
   # Create port connections
-  connect_bd_net -net Net [get_bd_ports sZmodDAC_SDIO_0] [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SDIO]
-  connect_bd_net -net Net1 [get_bd_ports sZmodADC_SDIO_0] [get_bd_pins ZmodADC_Controller_0/sZmodADC_SDIO]
-  connect_bd_net -net ZmodADC_Controller_0_ZmodAdcClkIn_n [get_bd_pins ZmodADC_Controller_0/ZmodAdcClkIn_n] [get_bd_ports ZmodAdcClkIn_n_0]
-  connect_bd_net -net ZmodADC_Controller_0_ZmodAdcClkIn_p [get_bd_pins ZmodADC_Controller_0/ZmodAdcClkIn_p] [get_bd_ports ZmodAdcClkIn_p_0]
-  connect_bd_net -net ZmodADC_Controller_0_iZmodSync [get_bd_pins ZmodADC_Controller_0/iZmodSync] [get_bd_ports iZmodSync_0]
-  connect_bd_net -net ZmodADC_Controller_0_sInitDoneADC [get_bd_pins ZmodADC_Controller_0/sInitDoneADC] [get_bd_pins Filter_Top_Level_0/sInitDoneADC]
-  connect_bd_net -net ZmodADC_Controller_0_sInitDoneRelay [get_bd_pins ZmodADC_Controller_0/sInitDoneRelay] [get_bd_pins Filter_Top_Level_0/sInitDoneRelay]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodADC_CS [get_bd_pins ZmodADC_Controller_0/sZmodADC_CS] [get_bd_ports sZmodADC_CS_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodADC_Sclk [get_bd_pins ZmodADC_Controller_0/sZmodADC_Sclk] [get_bd_ports sZmodADC_Sclk_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1CouplingH [get_bd_pins ZmodADC_Controller_0/sZmodCh1CouplingH] [get_bd_ports sZmodCh1CouplingH_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1CouplingL [get_bd_pins ZmodADC_Controller_0/sZmodCh1CouplingL] [get_bd_ports sZmodCh1CouplingL_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1GainH [get_bd_pins ZmodADC_Controller_0/sZmodCh1GainH] [get_bd_ports sZmodCh1GainH_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1GainL [get_bd_pins ZmodADC_Controller_0/sZmodCh1GainL] [get_bd_ports sZmodCh1GainL_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2CouplingH [get_bd_pins ZmodADC_Controller_0/sZmodCh2CouplingH] [get_bd_ports sZmodCh2CouplingH_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2CouplingL [get_bd_pins ZmodADC_Controller_0/sZmodCh2CouplingL] [get_bd_ports sZmodCh2CouplingL_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2GainH [get_bd_pins ZmodADC_Controller_0/sZmodCh2GainH] [get_bd_ports sZmodCh2GainH_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2GainL [get_bd_pins ZmodADC_Controller_0/sZmodCh2GainL] [get_bd_ports sZmodCh2GainL_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodRelayComH [get_bd_pins ZmodADC_Controller_0/sZmodRelayComH] [get_bd_ports sZmodRelayComH_0]
-  connect_bd_net -net ZmodADC_Controller_0_sZmodRelayComL [get_bd_pins ZmodADC_Controller_0/sZmodRelayComL] [get_bd_ports sZmodRelayComL_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sInitDoneDAC [get_bd_pins ZmodDAC1411_Controll_0/sInitDoneDAC] [get_bd_pins Filter_Top_Level_0/sInitDoneDAC]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_CS [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_CS] [get_bd_ports sZmodDAC_CS_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_ClkIO [get_bd_pins ZmodDAC1411_Controll_0/ZmodDAC_ClkIO] [get_bd_ports ZmodDAC_ClkIO_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_Clkin [get_bd_pins ZmodDAC1411_Controll_0/ZmodDAC_ClkIn] [get_bd_ports ZmodDAC_Clkin_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_Data [get_bd_pins ZmodDAC1411_Controll_0/dZmodDAC_Data] [get_bd_ports dZmodDAC_Data_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_EnOut [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_EnOut] [get_bd_ports sZmodDAC_EnOut_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_Reset [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_Reset] [get_bd_ports sZmodDAC_Reset_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_SCLK [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SCLK] [get_bd_ports sZmodDAC_SCLK_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_SetFS1 [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SetFS1] [get_bd_ports sZmodDAC_SetFS1_0]
-  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_SetFS2 [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SetFS2] [get_bd_ports sZmodDAC_SetFS2_0]
-  connect_bd_net -net ZmodDcoClk_0_1 [get_bd_ports ZmodDcoClk_0] [get_bd_pins ZmodADC_Controller_0/ZmodDcoClk]
-  connect_bd_net -net clk_in1_0_1 [get_bd_ports clk_in1_0] [get_bd_pins clk_wiz_0/clk_in1]
-  connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins ZmodDAC1411_Controll_0/DAC_Clk]
-  connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins ZmodADC_Controller_0/ADC_InClk]
-  connect_bd_net -net dZmodADC_Data_0_1 [get_bd_ports dZmodADC_Data_0] [get_bd_pins ZmodADC_Controller_0/dZmodADC_Data]
-  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins Filter_Top_Level_0/aRst_n] [get_bd_pins ZmodADC_Controller_0/aRst_n] [get_bd_pins ZmodDAC1411_Controll_0/aRst_n]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins Filter_Top_Level_0/SamplingClk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins ZmodADC_Controller_0/SysClk100] [get_bd_pins ZmodADC_Controller_0/ADC_SamplingClk] [get_bd_pins ZmodDAC1411_Controll_0/SysClk100] [get_bd_pins ZmodDAC1411_Controll_0/DAC_InIO_Clk]
-  connect_bd_net -net reset_rtl_0_0_1 [get_bd_ports reset_rtl_0_0] [get_bd_pins proc_sys_reset_0/ext_reset_in]
-  connect_bd_net -net xlconstant_0_dout [get_bd_pins xlconstant_0/dout] [get_bd_pins proc_sys_reset_0/dcm_locked]
-  connect_bd_net -net xlconstant_1_dout [get_bd_pins xlconstant_1/dout] [get_bd_pins clk_wiz_0/reset]
-  connect_bd_net -net xlconstant_2_dout [get_bd_pins xlconstant_2/dout] [get_bd_pins ZmodADC_Controller_0/sTestMode] [get_bd_pins ZmodDAC1411_Controll_0/sTestMode]
-  connect_bd_net -net xlconstant_3_dout [get_bd_pins xlconstant_3/dout] [get_bd_pins ZmodDAC1411_Controll_0/sDAC_EnIn]
-  connect_bd_net -net xlconstant_4_dout [get_bd_pins xlconstant_4/dout] [get_bd_pins ZmodADC_Controller_0/sEnableAcquisition]
+  connect_bd_net -net Net  [get_bd_ports sZmodDAC_SDIO_0] \
+  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SDIO]
+  connect_bd_net -net Net1  [get_bd_ports sZmodADC_SDIO_0] \
+  [get_bd_pins ZmodADC_Controller_0/sZmodADC_SDIO]
+  connect_bd_net -net ZmodADC_Controller_0_ZmodAdcClkIn_n  [get_bd_pins ZmodADC_Controller_0/ZmodAdcClkIn_n] \
+  [get_bd_ports ZmodAdcClkIn_n_0]
+  connect_bd_net -net ZmodADC_Controller_0_ZmodAdcClkIn_p  [get_bd_pins ZmodADC_Controller_0/ZmodAdcClkIn_p] \
+  [get_bd_ports ZmodAdcClkIn_p_0]
+  connect_bd_net -net ZmodADC_Controller_0_iZmodSync  [get_bd_pins ZmodADC_Controller_0/iZmodSync] \
+  [get_bd_ports iZmodSync_0]
+  connect_bd_net -net ZmodADC_Controller_0_sInitDoneADC  [get_bd_pins ZmodADC_Controller_0/sInitDoneADC] \
+  [get_bd_pins Filter_Top_Level_0/sInitDoneADC]
+  connect_bd_net -net ZmodADC_Controller_0_sInitDoneRelay  [get_bd_pins ZmodADC_Controller_0/sInitDoneRelay] \
+  [get_bd_pins Filter_Top_Level_0/sInitDoneRelay]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodADC_CS  [get_bd_pins ZmodADC_Controller_0/sZmodADC_CS] \
+  [get_bd_ports sZmodADC_CS_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodADC_Sclk  [get_bd_pins ZmodADC_Controller_0/sZmodADC_Sclk] \
+  [get_bd_ports sZmodADC_Sclk_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1CouplingH  [get_bd_pins ZmodADC_Controller_0/sZmodCh1CouplingH] \
+  [get_bd_ports sZmodCh1CouplingH_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1CouplingL  [get_bd_pins ZmodADC_Controller_0/sZmodCh1CouplingL] \
+  [get_bd_ports sZmodCh1CouplingL_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1GainH  [get_bd_pins ZmodADC_Controller_0/sZmodCh1GainH] \
+  [get_bd_ports sZmodCh1GainH_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh1GainL  [get_bd_pins ZmodADC_Controller_0/sZmodCh1GainL] \
+  [get_bd_ports sZmodCh1GainL_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2CouplingH  [get_bd_pins ZmodADC_Controller_0/sZmodCh2CouplingH] \
+  [get_bd_ports sZmodCh2CouplingH_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2CouplingL  [get_bd_pins ZmodADC_Controller_0/sZmodCh2CouplingL] \
+  [get_bd_ports sZmodCh2CouplingL_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2GainH  [get_bd_pins ZmodADC_Controller_0/sZmodCh2GainH] \
+  [get_bd_ports sZmodCh2GainH_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodCh2GainL  [get_bd_pins ZmodADC_Controller_0/sZmodCh2GainL] \
+  [get_bd_ports sZmodCh2GainL_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodRelayComH  [get_bd_pins ZmodADC_Controller_0/sZmodRelayComH] \
+  [get_bd_ports sZmodRelayComH_0]
+  connect_bd_net -net ZmodADC_Controller_0_sZmodRelayComL  [get_bd_pins ZmodADC_Controller_0/sZmodRelayComL] \
+  [get_bd_ports sZmodRelayComL_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sInitDoneDAC  [get_bd_pins ZmodDAC1411_Controll_0/sInitDoneDAC] \
+  [get_bd_pins Filter_Top_Level_0/sInitDoneDAC]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_CS  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_CS] \
+  [get_bd_ports sZmodDAC_CS_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_ClkIO  [get_bd_pins ZmodDAC1411_Controll_0/ZmodDAC_ClkIO] \
+  [get_bd_ports ZmodDAC_ClkIO_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_Clkin  [get_bd_pins ZmodDAC1411_Controll_0/ZmodDAC_ClkIn] \
+  [get_bd_ports ZmodDAC_Clkin_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_Data  [get_bd_pins ZmodDAC1411_Controll_0/dZmodDAC_Data] \
+  [get_bd_ports dZmodDAC_Data_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_EnOut  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_EnOut] \
+  [get_bd_ports sZmodDAC_EnOut_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_Reset  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_Reset] \
+  [get_bd_ports sZmodDAC_Reset_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_SCLK  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SCLK] \
+  [get_bd_ports sZmodDAC_SCLK_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_SetFS1  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SetFS1] \
+  [get_bd_ports sZmodDAC_SetFS1_0]
+  connect_bd_net -net ZmodDAC1411_Controll_0_sZmodDAC_SetFS2  [get_bd_pins ZmodDAC1411_Controll_0/sZmodDAC_SetFS2] \
+  [get_bd_ports sZmodDAC_SetFS2_0]
+  connect_bd_net -net ZmodDcoClk_0_1  [get_bd_ports ZmodDcoClk_0] \
+  [get_bd_pins ZmodADC_Controller_0/ZmodDcoClk]
+  connect_bd_net -net clk_in1_0_1  [get_bd_ports clk_in1_0] \
+  [get_bd_pins clk_wiz_0/clk_in1]
+  connect_bd_net -net clk_wiz_0_clk_out2  [get_bd_pins clk_wiz_0/clk_out2] \
+  [get_bd_pins ZmodDAC1411_Controll_0/DAC_Clk]
+  connect_bd_net -net clk_wiz_0_clk_out3  [get_bd_pins clk_wiz_0/clk_out3] \
+  [get_bd_pins ZmodADC_Controller_0/ADC_InClk]
+  connect_bd_net -net dZmodADC_Data_0_1  [get_bd_ports dZmodADC_Data_0] \
+  [get_bd_pins ZmodADC_Controller_0/dZmodADC_Data]
+  connect_bd_net -net ilconstant_0_dout  [get_bd_pins ilconstant_0/dout] \
+  [get_bd_pins clk_wiz_0/reset]
+  connect_bd_net -net ilconstant_1_dout  [get_bd_pins ilconstant_1/dout] \
+  [get_bd_pins proc_sys_reset_0/dcm_locked]
+  connect_bd_net -net ilconstant_2_dout  [get_bd_pins ilconstant_2/dout] \
+  [get_bd_pins ZmodADC_Controller_0/sEnableAcquisition]
+  connect_bd_net -net ilconstant_4_dout  [get_bd_pins ilconstant_4/dout] \
+  [get_bd_pins ZmodDAC1411_Controll_0/sDAC_EnIn]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn  [get_bd_pins proc_sys_reset_0/peripheral_aresetn] \
+  [get_bd_pins Filter_Top_Level_0/aRst_n] \
+  [get_bd_pins ZmodADC_Controller_0/aRst_n] \
+  [get_bd_pins ZmodDAC1411_Controll_0/aRst_n]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0  [get_bd_pins clk_wiz_0/clk_out1] \
+  [get_bd_pins Filter_Top_Level_0/SamplingClk] \
+  [get_bd_pins proc_sys_reset_0/slowest_sync_clk] \
+  [get_bd_pins ZmodADC_Controller_0/SysClk100] \
+  [get_bd_pins ZmodADC_Controller_0/ADC_SamplingClk] \
+  [get_bd_pins ZmodDAC1411_Controll_0/SysClk100] \
+  [get_bd_pins ZmodDAC1411_Controll_0/DAC_InIO_Clk]
+  connect_bd_net -net reset_rtl_0_0_1  [get_bd_ports reset_rtl_0_0] \
+  [get_bd_pins proc_sys_reset_0/ext_reset_in]
+  connect_bd_net -net xlconstant_2_dout  [get_bd_pins ilconstant_3/dout] \
+  [get_bd_pins ZmodADC_Controller_0/sTestMode] \
+  [get_bd_pins ZmodDAC1411_Controll_0/sTestMode]
 
   # Create address segments
 
