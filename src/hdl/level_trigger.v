@@ -22,6 +22,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module level_trigger (
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 stream_clk CLK" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF s:m, ASSOCIATED_RESET resetn" *)
     input wire stream_clk,
     input wire resetn,
     
