@@ -56,7 +56,7 @@ module inject_tlast_on_trigger (
     output wire        m_tlast,
     
     output wire [1:0] dbg_state
-);    
+);
     // control state machine
     localparam S_IDLE = 0; // wait for start signal assert, then go to prebuffer
     localparam S_PREBUFFER = 1; // enable output stream and transmit 'prebuffer_beats' data beats, then go to await
@@ -82,11 +82,10 @@ module inject_tlast_on_trigger (
     assign m_tvalid = (axis_m_output_enable) ? s_tvalid : 'b0;
     assign m_tdata = (axis_m_output_enable) ? s_tdata : 'b0;
     assign data_beat = m_tvalid & m_tready;
-    assign s_tready = 1'b1;
+    assign s_tready = (axis_m_output_enable) ? m_tready : 1'b1; // discard all incoming samples while idle
     
     assign counter_enable = (state == S_COUNTING || state == S_PREBUFFER) & data_beat;
     assign counter_reset = (state != S_COUNTING && state != S_PREBUFFER);
-    assign tlast_reg_enable = (state == S_COUNTING) & data_beat;
     
     assign any_trigger = (state == S_AWAIT) & |(trigger & trigger_enable);
     assign trigger_masked = trigger & trigger_enable;
@@ -103,15 +102,16 @@ module inject_tlast_on_trigger (
             end
         end
         S_PREBUFFER: begin
-            // note: it doesn't hurt to prebuffer a couple of extra samples, which is what happens when prebuffer_beats is 0 or 1. this is not the case for trigger_to_tlast, see below.
-            if (beat_count == prebuffer_beats - 2 || prebuffer_beats < 2) begin
+            // note: it doesn't hurt to prebuffer a couple of extra samples, which is what happens when prebuffer_beats is 0 or 1.
+            if (data_beat && (beat_count == prebuffer_beats - 2 || prebuffer_beats < 2)) begin
                 next_state = S_AWAIT;
             end else begin
                 next_state = state;
             end
         end
         S_AWAIT: begin
-            if (any_trigger) begin
+            // always spends at least one cycle awaiting the trigger, hence prebuffering to the total sample count minus two.
+            if (data_beat && any_trigger) begin
                 next_state = S_COUNTING;
             end else begin
                 next_state = state;
@@ -124,7 +124,7 @@ module inject_tlast_on_trigger (
                 next_state = state;
             end
         end
-        default: next_state = 0;
+        default: next_state = S_IDLE;
         endcase
     end
     
@@ -150,21 +150,7 @@ module inject_tlast_on_trigger (
         .tc           ()
     );
     
-    // trigger_to_last_beats equal to 0 or 1 not supported due to the two-clock-cycle latency through the handshake -> beat counter -> tlast reg path.
-    // adding a couple registers to both the axi-stream data and valid paths could help avoid the need to "look ahead" on the counter like this.
-    // could alternatively consider adding a config_error port that reports to the PS when an invalid selection has been made. 
-    assign next_tlast = (beat_count == trigger_to_last_beats - 2);
-    
-    register #(
-        .RESET_VALUE  (0),
-        .WIDTH        (1)
-    ) m_tlast_reg_inst (
-        .clock        (stream_clk),
-        .reset        (~stream_resetn),
-        .write_enable (tlast_reg_enable),
-        .data_i       (next_tlast),
-        .data_o       (m_tlast)
-    );
+    assign m_tlast = (beat_count == trigger_to_last_beats - 1);
     
     register #(
         .RESET_VALUE  (0),
