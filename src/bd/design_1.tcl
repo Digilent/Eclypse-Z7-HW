@@ -43,6 +43,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xc7z020clg484-1
+   set_property BOARD_PART digilentinc.com:eclypse-z7:part0:1.1 [current_project]
 }
 
 
@@ -401,11 +402,11 @@ proc create_root_design { parentCell } {
   [get_bd_pins ZmodDAC1411_Controll_0/aRst_n]
   connect_bd_net -net processing_system7_0_FCLK_CLK0  [get_bd_pins clk_wiz_0/clk_out1] \
   [get_bd_pins Filter_Top_Level_0/SamplingClk] \
-  [get_bd_pins proc_sys_reset_0/slowest_sync_clk] \
   [get_bd_pins ZmodADC_Controller_0/SysClk100] \
   [get_bd_pins ZmodADC_Controller_0/ADC_SamplingClk] \
   [get_bd_pins ZmodDAC1411_Controll_0/SysClk100] \
-  [get_bd_pins ZmodDAC1411_Controll_0/DAC_InIO_Clk]
+  [get_bd_pins ZmodDAC1411_Controll_0/DAC_InIO_Clk] \
+  [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
   connect_bd_net -net reset_rtl_0_0_1  [get_bd_ports reset_rtl_0_0] \
   [get_bd_pins proc_sys_reset_0/ext_reset_in]
   connect_bd_net -net xlconstant_2_dout  [get_bd_pins ilconstant_3/dout] \
